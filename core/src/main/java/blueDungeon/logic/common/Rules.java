@@ -6,6 +6,10 @@ package blueDungeon.logic.common;
 public class Rules {
 
     /** Taille d'une tuile en unité logic, 1 unité logic = 1 pixel avant la mise à l'échel par le gui*/
-    public static final int TILE_SIZE = 64;
+    private static final int TILE_SIZE = 64;
+
+    public static int getTileSize(){
+        return TILE_SIZE;
+    }
     
 }

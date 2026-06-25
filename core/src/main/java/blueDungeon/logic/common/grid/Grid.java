@@ -1,6 +1,7 @@
-package blueDungeon.logic.common;
+package blueDungeon.logic.common.grid;
 
 import blueDungeon.engine.WorldPosition;
+import blueDungeon.logic.common.grid.cell.Cell;
 
 /**
  * @author Galexis
