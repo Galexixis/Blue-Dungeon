@@ -1,5 +1,7 @@
 package blueDungeon.logic.common.grid.cell.component;
 
+import blueDungeon.logic.common.grid.cell.CellPriority;
+import blueDungeon.logic.common.grid.cell.event.CellEventContext;
 import blueDungeon.logic.common.grid.cell.event.EnterCellEvent;
 
 /**

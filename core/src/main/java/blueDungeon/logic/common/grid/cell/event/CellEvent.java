@@ -9,7 +9,8 @@ import blueDungeon.logic.common.grid.cell.component.CellComponent;
 public interface CellEvent {
 
     /**
-     * Appèle la ou les methode(s) sur un composant de cellule.
+     * Effectue le double-dispatch : l'événement appelle sur le composant
+    * la méthode correspondant à son type (ex : onEnter, onLeave , ...)
      * @param cellComponent
      * @param cellEventContext
      */
