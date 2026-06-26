@@ -1,6 +1,7 @@
 package blueDungeon.logic.common.grid;
 
-import blueDungeon.engine.WorldPosition;
+import com.badlogic.gdx.math.Vector2;
+
 import blueDungeon.logic.common.grid.cell.Cell;
 
 /**
@@ -64,12 +65,11 @@ public class Grid {
 
     /**
      * Utilise des coordonnées continue
-     * @param worldPosition
+     * @param vector2
      * @return Cell
      */
-    public Cell getCell(WorldPosition worldPosition){
-        // TODO (Alexis) Faire cette methode losque worldPosition sera codée
-        return getCell(0, 0);
+    public Cell getCell(Vector2 vector2){
+        return getCell(GridUtil.floor(vector2.x), GridUtil.floor(vector2.y));
     }
 
     /**
@@ -84,13 +84,11 @@ public class Grid {
 
     /**
      * Permet de savoir si les coordonnées continues sont valides dans cette grille.
-     * @param worldPosition
+     * @param vector2
      * @return boolean
      */
-    public boolean isInGrid(WorldPosition worldPosition){
-        // TODO (Alexis) faire la conversion lorsque worldPosition sera créer
-        // via une methode dans la classe grid à créée
-        return isInGrid(0,0);
+    public boolean isInGrid(Vector2 vector2){
+        return isInGrid(GridUtil.floor(vector2.x), GridUtil.floor(vector2.y));
     }
 
 }
