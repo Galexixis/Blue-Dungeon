@@ -1,4 +1,4 @@
-package blueDungeon.logic.common;
+package blueDungeon.logic.common.grid.cell;
 
 /**
  * @author Galexis
@@ -13,7 +13,7 @@ public enum CellType {
     GROUND(false);
 
     /** Definie si la case rejette toute présence */
-    public final boolean isBlocking;
+    private final boolean isBlocking;
 
     /** Constructeur de l'enum */
     private CellType(boolean isBlocking){
@@ -21,7 +21,6 @@ public enum CellType {
     }
 
     /**
-     * Peut aussi être obtenue sans passer par le getter (ex : CellType.WALL.isBlocking)
      * @return boolean
      */
     public boolean isBlocking(){
