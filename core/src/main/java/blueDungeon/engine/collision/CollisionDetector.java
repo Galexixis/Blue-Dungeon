@@ -8,6 +8,9 @@ import blueDungeon.engine.collision.hitboxes.CircleHitbox;
  *
  * @author mimron
  */
+
+// Utiliser long si overflow
+
 public class CollisionDetector {
     private CollisionDetector() {
     }
@@ -33,11 +36,11 @@ public class CollisionDetector {
      * {@code false} otherwise
      */
     public static boolean collidesWith(CircleHitbox circle, RectangleHitbox rectangle) {
-        int closestX = clamp(circle.getX(), rectangle.getX(), rectangle.getX() + rectangle.getWidth());
-        int closestY = clamp(circle.getY(), rectangle.getY(), rectangle.getY() + rectangle.getHeight());
+        float closestX = clamp(circle.getX(), rectangle.getX(), rectangle.getX() + rectangle.getWidth());
+        float closestY = clamp(circle.getY(), rectangle.getY(), rectangle.getY() + rectangle.getHeight());
 
-        int dx = circle.getX() - closestX;
-        int dy = circle.getY() - closestY;
+        float dx = circle.getX() - closestX;
+        float dy = circle.getY() - closestY;
 
         return dx * dx + dy * dy <= circle.getRadius() * circle.getRadius();
     }
@@ -51,9 +54,9 @@ public class CollisionDetector {
      * {@code false} otherwise
      */
     public static boolean collidesWith(CircleHitbox circle1, CircleHitbox circle2) {
-        int dx = circle1.getX() - circle2.getX();
-        int dy = circle1.getY() - circle2.getY();
-        int radiusSum = circle1.getRadius() + circle2.getRadius();
+        float dx = circle1.getX() - circle2.getX();
+        float dy = circle1.getY() - circle2.getY();
+        float radiusSum = circle1.getRadius() + circle2.getRadius();
 
         return dx * dx + dy * dy <= radiusSum * radiusSum;
     }
@@ -83,7 +86,7 @@ public class CollisionDetector {
      *         {@code min} if {@code value} is less than {@code min},
      *         or {@code max} if {@code value} is greater than {@code max}
      */
-    private static int clamp(int value, int min, int max) {
+    private static float clamp(float value, float min, float max) {
         // si (min <= value <= max)
         //      retourne value
         // Sinon si (value < min)

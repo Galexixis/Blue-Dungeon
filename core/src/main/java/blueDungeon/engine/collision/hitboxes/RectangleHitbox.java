@@ -12,8 +12,8 @@ import java.util.Objects;
  * @author mimron
  */
 public class RectangleHitbox extends Hitbox {
-    private final int width;
-    private final int height;
+    private final float width;
+    private final float height;
 
     /**
      * Creates a rectangular hitbox.
@@ -25,7 +25,7 @@ public class RectangleHitbox extends Hitbox {
      *
      * @throws IllegalArgumentException if width or height is not positive
      */
-    public RectangleHitbox(int x, int y, int width, int height) {
+    public RectangleHitbox(float x, float y, float width, float height) {
         super(x, y);
 
         if (width <= 0) {
@@ -44,11 +44,25 @@ public class RectangleHitbox extends Hitbox {
         this.height = height;
     }
 
-    public int getWidth() {
+    /**
+     * @return the x coordinate of the center
+     */
+    public float getCenterX() {
+        return this.getX() + this.getWidth() / 2;
+    }
+
+    /**
+     * @return the y coordinate of the center
+     */
+    public float getCenterY() {
+        return this.getY() + this.getHeight() / 2;
+    }
+
+    public float getWidth() {
         return width;
     }
 
-    public int getHeight() {
+    public float getHeight() {
         return height;
     }
 

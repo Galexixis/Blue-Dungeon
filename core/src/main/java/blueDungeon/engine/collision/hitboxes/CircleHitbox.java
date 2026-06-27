@@ -11,7 +11,7 @@ import java.util.Objects;
  * @author mimron
  */
 public class CircleHitbox extends Hitbox {
-    private final int radius;
+    private final float radius;
 
     /**
      * Creates a circle hitbox.
@@ -22,7 +22,7 @@ public class CircleHitbox extends Hitbox {
      *
      * @throws IllegalArgumentException if radius is not positive
      */
-    public CircleHitbox(int x, int y, int radius) {
+    public CircleHitbox(float x, float y, float radius) {
         super(x, y);
 
         if (radius <= 0) {
@@ -34,7 +34,7 @@ public class CircleHitbox extends Hitbox {
         this.radius = radius;
     }
 
-    public int getRadius() {
+    public float getRadius() {
         return radius;
     }
 

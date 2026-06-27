@@ -6,8 +6,8 @@ package blueDungeon.engine.collision.hitboxes;
  * @author mimron
  */
 public abstract class Hitbox {
-    private int x;
-    private int y;
+    private float x;
+    private float y;
 
     /**
      * Creates a hitbox at the specified coordinates.
@@ -15,24 +15,24 @@ public abstract class Hitbox {
      * @param x the x-coordinate of this hitbox
      * @param y the y-coordinate of this hitbox
      */
-    public Hitbox(int x, int y) {
+    public Hitbox(float x, float y) {
         this.x = x;
         this.y = y;
     }
 
-    public int getX() {
+    public float getX() {
         return x;
     }
 
-    public int getY() {
+    public float getY() {
         return y;
     }
 
-    public void setX(int x) {
+    public void setX(float x) {
         this.x = x;
     }
 
-    public void setY(int y) {
+    public void setY(float y) {
         this.y = y;
     }
 
