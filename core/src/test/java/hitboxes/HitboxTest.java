@@ -15,15 +15,23 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class HitboxTest {
 
     /**
-     * Checks that a circle radius must be positive.
+     * Checks that a circle radius must be strictly positive.
      */
     @Test
     void circleRejectsInvalidRadius() {
+        IllegalArgumentException zeroRadiusException = assertThrows(
+            IllegalArgumentException.class,
+            () -> new CircleHitbox(0, 0, 0)
+        );
         IllegalArgumentException negativeRadiusException = assertThrows(
             IllegalArgumentException.class,
             () -> new CircleHitbox(0, 0, -1)
         );
 
+        assertEquals(
+            "Circle hitbox's radius must be greater than 0: 0",
+            zeroRadiusException.getMessage()
+        );
         assertEquals(
             "Circle hitbox's radius must be greater than 0: -1",
             negativeRadiusException.getMessage()
@@ -31,15 +39,23 @@ public class HitboxTest {
     }
 
     /**
-     * Checks that a rectangle width must be positive.
+     * Checks that a rectangle width must be strictly positive.
      */
     @Test
     void rectangleRejectsInvalidWidth() {
+        IllegalArgumentException zeroWidthException = assertThrows(
+            IllegalArgumentException.class,
+            () -> new RectangleHitbox(0, 0, 0, 10)
+        );
         IllegalArgumentException negativeWidthException = assertThrows(
             IllegalArgumentException.class,
             () -> new RectangleHitbox(0, 0, -1, 10)
         );
 
+        assertEquals(
+            "Rectangle hitbox's width must be greater than 0: 0",
+            zeroWidthException.getMessage()
+        );
         assertEquals(
             "Rectangle hitbox's width must be greater than 0: -1",
             negativeWidthException.getMessage()
@@ -47,15 +63,23 @@ public class HitboxTest {
     }
 
     /**
-     * Checks that a rectangle height must be positive.
+     * Checks that a rectangle height must be strictly positive.
      */
     @Test
     void rectangleRejectsInvalidHeight() {
+        IllegalArgumentException zeroHeightException = assertThrows(
+            IllegalArgumentException.class,
+            () -> new RectangleHitbox(0, 0, 10, 0)
+        );
         IllegalArgumentException negativeHeightException = assertThrows(
             IllegalArgumentException.class,
             () -> new RectangleHitbox(0, 0, 10, -1)
         );
 
+        assertEquals(
+            "Rectangle hitbox's height must be greater than 0: 0",
+            zeroHeightException.getMessage()
+        );
         assertEquals(
             "Rectangle hitbox's height must be greater than 0: -1",
             negativeHeightException.getMessage()
