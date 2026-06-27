@@ -29,11 +29,11 @@ public class HitboxTest {
         );
 
         assertEquals(
-            "Circle hitbox's radius must be greater than 0: 0",
+            "Circle hitbox's radius must be greater than 0: 0.0",
             zeroRadiusException.getMessage()
         );
         assertEquals(
-            "Circle hitbox's radius must be greater than 0: -1",
+            "Circle hitbox's radius must be greater than 0: -1.0",
             negativeRadiusException.getMessage()
         );
     }
@@ -53,11 +53,11 @@ public class HitboxTest {
         );
 
         assertEquals(
-            "Rectangle hitbox's width must be greater than 0: 0",
+            "Rectangle hitbox's width must be greater than 0: 0.0",
             zeroWidthException.getMessage()
         );
         assertEquals(
-            "Rectangle hitbox's width must be greater than 0: -1",
+            "Rectangle hitbox's width must be greater than 0: -1.0",
             negativeWidthException.getMessage()
         );
     }
@@ -77,11 +77,11 @@ public class HitboxTest {
         );
 
         assertEquals(
-            "Rectangle hitbox's height must be greater than 0: 0",
+            "Rectangle hitbox's height must be greater than 0: 0.0",
             zeroHeightException.getMessage()
         );
         assertEquals(
-            "Rectangle hitbox's height must be greater than 0: -1",
+            "Rectangle hitbox's height must be greater than 0: -1.0",
             negativeHeightException.getMessage()
         );
     }
