@@ -8,6 +8,7 @@ import blueDungeon.logic.common.grid.cell.component.CellComponent;
 import blueDungeon.logic.common.grid.cell.event.CellEvent;
 import blueDungeon.logic.common.grid.cell.event.CellEventContext;
 import blueDungeon.logic.common.grid.cell.event.EnterCellEvent;
+import blueDungeon.logic.common.grid.cell.event.LeaveCellEvent;
 
 /**
  * @author Galexis
@@ -106,6 +107,17 @@ public class Cell {
         //Envoit de l'evenement qui peut être annulé
         EnterCellEvent enterCellEvent = new EnterCellEvent(entity);
         return sendEvent(enterCellEvent);
+    }
+
+    /**
+     * Fait sortir si possible l'entité de la cellule.
+     * @param entity
+     * @return un boolean indiquant si l'entité est sortie de la cellule.
+     */
+    public boolean leave(Entity entity){
+        //Envoit de l'evenement qui peut être annulé
+        LeaveCellEvent leaveCellEvent = new LeaveCellEvent(entity);
+        return sendEvent(leaveCellEvent);
     }
 
     /**

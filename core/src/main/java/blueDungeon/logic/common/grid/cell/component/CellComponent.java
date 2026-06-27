@@ -4,6 +4,7 @@ import blueDungeon.logic.common.grid.cell.Cell;
 import blueDungeon.logic.common.grid.cell.CellPriority;
 import blueDungeon.logic.common.grid.cell.event.CellEventContext;
 import blueDungeon.logic.common.grid.cell.event.EnterCellEvent;
+import blueDungeon.logic.common.grid.cell.event.LeaveCellEvent;
 
 /**
  * @author Galexis
@@ -34,9 +35,16 @@ public interface CellComponent {
 
     /**
      * Réagis à l'entré d'une entité dans la case.
-     * @param entryEvent
+     * @param enterCellEvent
      * @param context
      */
     default void onEnter(EnterCellEvent enterCellEvent, CellEventContext context){}
+
+    /**
+     * Réagis à la sortie d'une entité de la case.
+     * @param leaveCellEvent
+     * @param context
+     */
+    default void onLeave(LeaveCellEvent leaveCellEvent, CellEventContext context){}
 
 }
