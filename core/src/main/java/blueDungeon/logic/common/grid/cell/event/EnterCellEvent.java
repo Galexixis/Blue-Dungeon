@@ -1,6 +1,6 @@
 package blueDungeon.logic.common.grid.cell.event;
 
-import blueDungeon.logic.common.Entity;
+import blueDungeon.logic.common.entity.CellEntity;
 import blueDungeon.logic.common.grid.cell.component.CellComponent;
 
 /**
@@ -9,18 +9,18 @@ import blueDungeon.logic.common.grid.cell.component.CellComponent;
  */
 public class EnterCellEvent implements CellEvent {
 
-    private final Entity entity;
+    private final CellEntity cellEntity;
 
     /**
      * Crée un evenement d'entrè dans une case.
-     * @param entity
+     * @param cellEntity
      */
-    public EnterCellEvent(Entity entity){
-        this.entity = entity;
+    public EnterCellEvent(CellEntity cellEntity){
+        this.cellEntity = cellEntity;
     }
 
-    public Entity getEntity(){
-        return entity;
+    public CellEntity getEntity(){
+        return cellEntity;
     }
 
     @Override

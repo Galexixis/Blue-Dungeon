@@ -3,7 +3,7 @@ package blueDungeon.logic.common.grid.cell;
 import java.util.ArrayList;
 import java.util.List;
 
-import blueDungeon.logic.common.Entity;
+import blueDungeon.logic.common.entity.CellEntity;
 import blueDungeon.logic.common.grid.cell.component.CellComponent;
 import blueDungeon.logic.common.grid.cell.event.CellEvent;
 import blueDungeon.logic.common.grid.cell.event.CellEventContext;
@@ -62,7 +62,7 @@ public class Cell {
     public void setCellType(CellType cellType){
         this.cellType = cellType;
     }
-    
+
     /**
      * Permet de (dé)bloquer la traversée des entités (n'écrase pas le blocage par les types de case).
      * @param isBlocking
@@ -95,16 +95,16 @@ public class Cell {
 
     /**
      * Fait entré si possible l'entité dans la cellule.
-     * @param entity
+     * @param cellEntity
      * @return un boollean indiquant si l'entité est rentré dans la cellule.
      */
-    public boolean enter(Entity entity){
+    public boolean enter(CellEntity cellEntity){
         //Si la case refuse l'entré
         if(isBlocking()){
             return false;
         }
         //Envoit de l'evenement qui peut être annulé
-        EnterCellEvent enterCellEvent = new EnterCellEvent(entity);
+        EnterCellEvent enterCellEvent = new EnterCellEvent(cellEntity);
         return sendEvent(enterCellEvent);
     }
 
@@ -139,5 +139,5 @@ public class Cell {
     public String toString() {
         return "Cell("+ x +";"+y+")["+cellType+"]";
     }
-    
+
 }
