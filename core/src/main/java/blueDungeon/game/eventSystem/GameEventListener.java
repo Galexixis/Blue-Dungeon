@@ -1,6 +1,6 @@
-package blueDungeon.logic.common.eventSystem;
+package blueDungeon.game.eventSystem;
 
-import blueDungeon.logic.common.eventSystem.gameEvent.GameEvent;
+import blueDungeon.game.eventSystem.gameEvent.GameEvent;
 
 /**
  * @author Galexis

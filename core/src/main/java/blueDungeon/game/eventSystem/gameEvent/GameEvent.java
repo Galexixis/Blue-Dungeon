@@ -1,4 +1,4 @@
-package blueDungeon.logic.common.eventSystem.gameEvent;
+package blueDungeon.game.eventSystem.gameEvent;
 
 /**
  * Sert de type commun entre tous les gameEvent.
