@@ -2,7 +2,6 @@ package blueDungeon.game;
 
 import blueDungeon.engine.timer.PhysiqueTimer;
 import blueDungeon.game.eventSystem.EventBus;
-import blueDungeon.logic.common.grid.Grid;
 import blueDungeon.logic.common.time.TickTimer;
 
 /**
@@ -20,7 +19,6 @@ public class GameContext {
 
     // Element logic
     public final TickTimer tickTimer;
-    public final Grid grid;
 
     public GameContext(){
 
