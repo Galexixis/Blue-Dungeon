@@ -1,7 +1,5 @@
 package blueDungeon.engine.collision.hitboxes;
 
-import blueDungeon.engine.collision.hitboxes.CircleHitbox;
-import blueDungeon.engine.collision.hitboxes.RectangleHitbox;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
