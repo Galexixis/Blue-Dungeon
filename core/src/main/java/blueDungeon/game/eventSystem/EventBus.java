@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import blueDungeon.game.eventSystem.gameEvent.GameEvent;
+import blueDungeon.logging.Logger;
 
 /**
  * @author Galexis
@@ -25,6 +26,7 @@ public class EventBus {
         Objects.requireNonNull(listener);
         //Ajoute l'écouteur et crée une liste s'il y en à pas.
         listeners.computeIfAbsent(eventType, e-> new ArrayList<>()).add(listener);
+        Logger.debug("EventBus: listener enregistré pour " + eventType.getSimpleName());
     }
 
     /**
@@ -41,6 +43,7 @@ public class EventBus {
 
         list.remove(listener);
         if (list.isEmpty()) listeners.remove(eventType);
+        Logger.debug("EventBus: listener désenregistré pour " + eventType.getSimpleName());
     }
 
     /**
@@ -52,15 +55,20 @@ public class EventBus {
 
         Class<? extends GameEvent> eventType = event.getClass();
         List<GameEventListener> list = listeners.get(eventType);
-        if(list == null || list.isEmpty()) return;
+        if(list == null || list.isEmpty()){
+            Logger.debug("EventBus: " + eventType.getSimpleName() + " émis sans aucun listener");
+            return;
+        }
 
         var copyList = new ArrayList<>(list);
+        Logger.debug("EventBus: " + eventType.getSimpleName() + " émis vers " + copyList.size() + " listener(s)");
 
         for(GameEventListener listener : copyList){
             try {
                 listener.onEvent(event);
             } catch (Exception e) {
-                // On catch l'exeption pour que la boucle for continue
+                //On logue l'exeption (au lieu de l'avaler silencieusement) pour que la boucle for continue
+                Logger.error("EventBus: erreur dans un listener de " + eventType.getSimpleName(), e);
             }
         }
 
