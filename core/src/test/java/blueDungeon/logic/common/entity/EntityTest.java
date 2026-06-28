@@ -22,7 +22,7 @@ public class EntityTest {
      */
     @Test
     void initializesHealth() {
-        TestEntity entity = new TestEntity(100);
+        TestLivingEntity entity = new TestLivingEntity(100);
 
         assertEquals(100, entity.getHealth());
         assertEquals(100, entity.getMaxHealth());
@@ -34,7 +34,7 @@ public class EntityTest {
      */
     @Test
     void implementsRequiredCapabilities() {
-        TestEntity entity = new TestEntity(100);
+        TestLivingEntity entity = new TestLivingEntity(100);
 
         assertInstanceOf(CellEntity.class, entity);
         assertInstanceOf(Damageable.class, entity);
@@ -47,11 +47,11 @@ public class EntityTest {
     void constructorRejectsInvalidMaxHealth() {
         IllegalArgumentException zeroHealthException = assertThrows(
             IllegalArgumentException.class,
-            () -> new TestEntity(0)
+            () -> new TestLivingEntity(0)
         );
         IllegalArgumentException negativeHealthException = assertThrows(
             IllegalArgumentException.class,
-            () -> new TestEntity(-1)
+            () -> new TestLivingEntity(-1)
         );
 
         assertEquals(
@@ -69,7 +69,7 @@ public class EntityTest {
      */
     @Test
     void limitsHealthToValidRange() {
-        TestEntity entity = new TestEntity(100);
+        TestLivingEntity entity = new TestLivingEntity(100);
 
         entity.setHealth(60);
         assertEquals(60, entity.getHealth());
@@ -87,7 +87,7 @@ public class EntityTest {
      */
     @Test
     void updatesMaxHealth() {
-        TestEntity entity = new TestEntity(100);
+        TestLivingEntity entity = new TestLivingEntity(100);
         entity.setHealth(80);
 
         entity.setMaxHealth(50);
@@ -106,7 +106,7 @@ public class EntityTest {
      */
     @Test
     void rejectsInvalidMaxHealthUpdate() {
-        TestEntity entity = new TestEntity(100);
+        TestLivingEntity entity = new TestLivingEntity(100);
 
         IllegalArgumentException zeroHealthException = assertThrows(
             IllegalArgumentException.class,
@@ -133,7 +133,7 @@ public class EntityTest {
      */
     @Test
     void receivesDamage() {
-        TestEntity entity = new TestEntity(100);
+        TestLivingEntity entity = new TestLivingEntity(100);
 
         entity.receiveDamage(30);
 
@@ -151,7 +151,7 @@ public class EntityTest {
      */
     @Test
     void validatesDamage() {
-        TestEntity entity = new TestEntity(100);
+        TestLivingEntity entity = new TestLivingEntity(100);
 
         entity.receiveDamage(0);
         assertEquals(100, entity.getHealth());
@@ -170,14 +170,14 @@ public class EntityTest {
      *
      * @author mimron
      */
-    private static final class TestEntity extends Entity {
+    private static final class TestLivingEntity extends LivingEntity {
 
         /**
          * Creates a test entity with the specified maximum health.
          *
          * @param maxHealth the entity maximum health
          */
-        private TestEntity(int maxHealth) {
+        private TestLivingEntity(int maxHealth) {
             super(
                 1.5f,
                 -2.5f,

@@ -8,7 +8,7 @@ import blueDungeon.engine.entity.Direction;
  *
  * @author mimron
  */
-public abstract class Entity extends blueDungeon.engine.entity.Entity implements CellEntity, Damageable {
+public class LivingEntity extends blueDungeon.engine.entity.Entity implements CellEntity, Damageable {
     private int health;
     private int maxHealth;
 
@@ -23,11 +23,11 @@ public abstract class Entity extends blueDungeon.engine.entity.Entity implements
      *
      * @throws IllegalArgumentException if maxHealth is not positive
      */
-    public Entity(float x,
-                  float y,
-                  int maxHealth,
-                  Direction direction,
-                  Hitbox hitbox) {
+    public LivingEntity(float x,
+                        float y,
+                        int maxHealth,
+                        Direction direction,
+                        Hitbox hitbox) {
         super(x, y, direction, hitbox);
         validateMaxHealth(maxHealth);
         this.health = maxHealth;
