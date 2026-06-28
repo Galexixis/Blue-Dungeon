@@ -1,4 +1,4 @@
-package hitboxes;
+package blueDungeon.engine.collision.hitboxes;
 
 import blueDungeon.engine.collision.hitboxes.CircleHitbox;
 import blueDungeon.engine.collision.hitboxes.RectangleHitbox;

@@ -1,15 +1,17 @@
+package blueDungeon.logic.common.entity;
+
 import blueDungeon.engine.collision.hitboxes.RectangleHitbox;
 import blueDungeon.engine.entity.Direction;
-import blueDungeon.logic.common.entity.Entity;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * Tests health management of entities.
+ * Tests health management and capabilities of Logic entities.
  *
  * @author mimron
  */
@@ -25,6 +27,17 @@ public class EntityTest {
         assertEquals(100, entity.getHealth());
         assertEquals(100, entity.getMaxHealth());
         assertTrue(entity.isAlive());
+    }
+
+    /**
+     * Checks that an entity exposes its required capabilities.
+     */
+    @Test
+    void implementsRequiredCapabilities() {
+        TestEntity entity = new TestEntity(100);
+
+        assertInstanceOf(CellEntity.class, entity);
+        assertInstanceOf(Damageable.class, entity);
     }
 
     /**
@@ -49,6 +62,24 @@ public class EntityTest {
             "Max health must be greater than 0: -1",
             negativeHealthException.getMessage()
         );
+    }
+
+    /**
+     * Checks that health remains between zero and maximum health.
+     */
+    @Test
+    void limitsHealthToValidRange() {
+        TestEntity entity = new TestEntity(100);
+
+        entity.setHealth(60);
+        assertEquals(60, entity.getHealth());
+
+        entity.setHealth(150);
+        assertEquals(100, entity.getHealth());
+
+        entity.setHealth(-10);
+        assertEquals(0, entity.getHealth());
+        assertFalse(entity.isAlive());
     }
 
     /**
@@ -116,7 +147,7 @@ public class EntityTest {
     }
 
     /**
-     * Checks zero and negative damage.
+     * Checks zero and negative damage handling.
      */
     @Test
     void validatesDamage() {
@@ -135,7 +166,9 @@ public class EntityTest {
     }
 
     /**
-     * test entity
+     * Concrete entity used to test the abstract Logic entity.
+     *
+     * @author mimron
      */
     private static final class TestEntity extends Entity {
 

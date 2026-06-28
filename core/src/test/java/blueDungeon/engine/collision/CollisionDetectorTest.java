@@ -1,3 +1,5 @@
+package blueDungeon.engine.collision;
+
 import blueDungeon.engine.collision.hitboxes.CircleHitbox;
 import blueDungeon.engine.collision.hitboxes.RectangleHitbox;
 import org.junit.jupiter.api.Test;
