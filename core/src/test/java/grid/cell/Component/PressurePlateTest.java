@@ -7,19 +7,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import blueDungeon.game.eventSystem.EventBus;
 import blueDungeon.logic.common.Entity;
 import blueDungeon.logic.common.grid.cell.Cell;
 import blueDungeon.logic.common.grid.cell.CellType;
 import blueDungeon.logic.common.grid.cell.component.DoorComponent;
 import blueDungeon.logic.common.grid.cell.component.PressurePlateComponent;
-import blueDungeon.logic.common.grid.cell.component.PressurePlateObserver;
 
 /**
- * Teste le composant PressurePlateComponent et son intégration avec DoorComponent.
- * 
+ * Teste le composant PressurePlateComponent et son intégration avec DoorComponent
+ * via un signal relayé par le bus d'événements (les deux cases partagent le même bus).
+ *
  * @author Romain Vandooren
  */
 public class PressurePlateTest {
+
+    private static final String CHANNEL = "door-1";
 
     private Cell plateCell;
     private Cell doorCell;
@@ -32,11 +35,12 @@ public class PressurePlateTest {
 
     @BeforeEach
     void init() {
-        plateCell = new Cell(1, 1, CellType.GROUND);
-        doorCell = new Cell(1, 2, CellType.GROUND);
+        EventBus eventBus = new EventBus();
+        plateCell = new Cell(1, 1, CellType.GROUND, false, eventBus);
+        doorCell = new Cell(1, 2, CellType.GROUND, false, eventBus);
 
-        pressurePlate = new PressurePlateComponent();
-        door = new DoorComponent();
+        pressurePlate = new PressurePlateComponent(CHANNEL);
+        door = new DoorComponent(CHANNEL);
 
         plateCell.addComponent(pressurePlate);
         doorCell.addComponent(door);
@@ -73,9 +77,6 @@ public class PressurePlateTest {
 
     @Test
     void testPressurePlateDoorConnection() {
-        // Connecte la plaque de pression à la porte
-        pressurePlate.addObserver(door);
-
         // La porte est fermée au départ
         assertFalse(door.isOpen());
         assertFalse(doorCell.enter(dummyEntity1)); // Impossible d'entrer dans la cellule de la porte fermée
@@ -92,19 +93,9 @@ public class PressurePlateTest {
     }
 
     @Test
-    void testCustomPressurePlateObserver() {
+    void testCustomSignalListener() {
         final boolean[] state = {false};
-        pressurePlate.addObserver(new PressurePlateObserver() {
-            @Override
-            public void onPressurePlatePressed(PressurePlateComponent plate) {
-                state[0] = true;
-            }
-
-            @Override
-            public void onPressurePlateReleased(PressurePlateComponent plate) {
-                state[0] = false;
-            }
-        });
+        doorCell.listenSignal(CHANNEL, value -> state[0] = value);
 
         assertFalse(state[0]);
         plateCell.enter(dummyEntity1);
