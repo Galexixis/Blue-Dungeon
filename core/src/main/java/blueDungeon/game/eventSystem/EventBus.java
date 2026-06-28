@@ -1,4 +1,4 @@
-package blueDungeon.logic.common.eventSystem;
+package blueDungeon.game.eventSystem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import blueDungeon.logic.common.eventSystem.gameEvent.GameEvent;
+import blueDungeon.game.eventSystem.gameEvent.GameEvent;
 
 /**
  * @author Galexis

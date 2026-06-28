@@ -1,9 +1,9 @@
-package blueDungeon.logic.common.eventSystem.gameEvent;
+package blueDungeon.game.eventSystem.gameEvent;
 
 /**
  * Evenement qui signal l'état de la mise en pause du jeu.
  * Permet de savoir si l'evement vient d'une source automatique ou manuel.
- * @author
+ * @author Galexis
  */
 public class PausedEvent implements GameEvent {
 

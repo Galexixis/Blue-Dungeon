@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import blueDungeon.logic.common.eventSystem.EventBus;
-import blueDungeon.logic.common.eventSystem.GameEventListener;
-import blueDungeon.logic.common.eventSystem.gameEvent.GameEvent;
+import blueDungeon.game.eventSystem.EventBus;
+import blueDungeon.game.eventSystem.GameEventListener;
+import blueDungeon.game.eventSystem.gameEvent.GameEvent;
 
 /**
  * @author Galexis
