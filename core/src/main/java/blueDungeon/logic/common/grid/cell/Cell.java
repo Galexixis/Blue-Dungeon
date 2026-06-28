@@ -2,12 +2,17 @@ package blueDungeon.logic.common.grid.cell;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
+import blueDungeon.game.eventSystem.EventBus;
+import blueDungeon.game.eventSystem.GameEventListener;
+import blueDungeon.game.eventSystem.gameEvent.SignalEvent;
 import blueDungeon.logic.common.Entity;
 import blueDungeon.logic.common.grid.cell.component.CellComponent;
 import blueDungeon.logic.common.grid.cell.event.CellEvent;
 import blueDungeon.logic.common.grid.cell.event.CellEventContext;
 import blueDungeon.logic.common.grid.cell.event.EnterCellEvent;
+import blueDungeon.logic.common.grid.cell.event.LeaveCellEvent;
 
 /**
  * @author Galexis
@@ -23,18 +28,34 @@ public class Cell {
 
     private final List<CellComponent> componentsList = new ArrayList<>();
 
+    /** Bus utilisé par les composants pour émettre/écouter des signaux sur un canal, sans se connaitre entre eux. */
+    private final EventBus eventBus;
+
     /**
      * Construit une case en spécifiant tout les paramètres.
      * @param x
      * @param y
      * @param cellType
      * @param isBlocking
+     * @param eventBus bus utilisé pour relayer les signaux entre composants.
      */
-    public Cell(int x, int y, CellType cellType, boolean isBlocking){
+    public Cell(int x, int y, CellType cellType, boolean isBlocking, EventBus eventBus){
         this.x = x;
         this.y = y;
         this.cellType = cellType;
         this.isBlocking = isBlocking;
+        this.eventBus = eventBus;
+    }
+
+    /**
+     * Construit une case en spécifiant tout les paramètres, avec un bus de signaux dédié.
+     * @param x
+     * @param y
+     * @param cellType
+     * @param isBlocking
+     */
+    public Cell(int x, int y, CellType cellType, boolean isBlocking){
+        this(x, y, cellType, isBlocking, new EventBus());
     }
 
     /**
@@ -109,6 +130,17 @@ public class Cell {
     }
 
     /**
+     * Fait sortir si possible l'entité de la cellule.
+     * @param entity
+     * @return un boolean indiquant si l'entité est sortie de la cellule.
+     */
+    public boolean leave(Entity entity){
+        //Envoit de l'evenement qui peut être annulé
+        LeaveCellEvent leaveCellEvent = new LeaveCellEvent(entity);
+        return sendEvent(leaveCellEvent);
+    }
+
+    /**
      * Envoit un evenement à tous les composants dans l'ordre de priorité le tous dans un context.
      * @param event
      * @return true si l'événement n'a pas été annulé, false sinon.
@@ -126,6 +158,32 @@ public class Cell {
     }
 
     /**
+     * Emet un signal sur un canal. Permet à un composant (ex : une plaque de pression)
+     * de communiquer avec d'autres composants sans les connaitre.
+     * @param channel le canal sur lequel émettre.
+     * @param value l'état du signal (true = positif, false = négatif).
+     */
+    public void emitSignal(String channel, boolean value){
+        eventBus.raiseEvent(new SignalEvent(channel, value));
+    }
+
+    /**
+     * Permet à un composant (ex : une porte) d'écouter les signaux émis sur un canal,
+     * sans connaitre la source qui les émet.
+     * @param channel le canal à écouter.
+     * @param listener appelé avec la valeur du signal lorsqu'un signal est émis sur ce canal.
+     */
+    public void listenSignal(String channel, Consumer<Boolean> listener){
+        GameEventListener gameEventListener = event -> {
+            SignalEvent signalEvent = (SignalEvent) event;
+            if(signalEvent.getChannel().equals(channel)){
+                listener.accept(signalEvent.getValue());
+            }
+        };
+        eventBus.register(SignalEvent.class, gameEventListener);
+    }
+
+    /**
      * Crée une case vide.
      * @param x
      * @param y
@@ -133,6 +191,17 @@ public class Cell {
      */
     public static Cell createVoidCell(int x, int y){
         return new Cell(x, y, CellType.VOID);
+    }
+
+    /**
+     * Crée une case vide partageant le bus de signaux fourni.
+     * @param x
+     * @param y
+     * @param eventBus
+     * @return Cell
+     */
+    public static Cell createVoidCell(int x, int y, EventBus eventBus){
+        return new Cell(x, y, CellType.VOID, false, eventBus);
     }
 
     @Override

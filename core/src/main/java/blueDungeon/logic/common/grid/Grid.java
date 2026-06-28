@@ -2,13 +2,14 @@ package blueDungeon.logic.common.grid;
 
 import com.badlogic.gdx.math.Vector2;
 
+import blueDungeon.game.eventSystem.EventBus;
 import blueDungeon.logic.common.grid.cell.Cell;
 
 /**
  * @author Galexis
  */
 public class Grid {
-    
+
     //Largeur de la grille
     public final int width;
     //Hauteur de largeur de la grille (différent de la hauteur d'une case)
@@ -17,21 +18,32 @@ public class Grid {
     private final Cell[][] cells;
 
     /**
-     * Contructeur basic d'une grille.
+     * Construit une grille dont toutes les cases partagent le bus de signaux fourni.
      * Toutes case sont initilalisées vides.
      * @param width largeur de la grille
      * @param height hauteur de la grille
+     * @param eventBus bus de signaux partagé par toutes les cases de la grille
      */
-    public Grid(int width, int height){
+    public Grid(int width, int height, EventBus eventBus){
         this.width = width;
         this.height = height;
         cells = new Cell[width][height];
 
         for(int x=0; x<width; x++){
             for(int y=0; y<height; y++){
-                cells[x][y] = Cell.createVoidCell(x, y);
+                cells[x][y] = Cell.createVoidCell(x, y, eventBus);
             }
         }
+    }
+
+    /**
+     * Contructeur basic d'une grille.
+     * Toutes case sont initilalisées vides.
+     * @param width largeur de la grille
+     * @param height hauteur de la grille
+     */
+    public Grid(int width, int height){
+        this(width, height, new EventBus());
     }
 
     /**
